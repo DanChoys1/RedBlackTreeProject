@@ -43,9 +43,10 @@ namespace RedBlackTreeProject
 
             for (int i = 0; i < treeDataArray.Count; i++)
             {
+                int y = _DistanceBetweenTiers * i;
+
                 for (int j = 0; j < treeDataArray[i].Count; j++)
                 {
-                    int y = _DistanceBetweenTiers * i;
                     int x = (maxHeight / treeDataArray[i].Count) * (j + 1);
 
                     Label label = new Label
@@ -105,7 +106,7 @@ namespace RedBlackTreeProject
             if (_isMouseDownLabel)
             {
                 Label movedCircle = (Label)sender;
-
+                
                 Point move = PointToClient(Control.MousePosition);
                 move.X -= movedCircle.Width / 2;
                 move.Y -= movedCircle.Height / 2;

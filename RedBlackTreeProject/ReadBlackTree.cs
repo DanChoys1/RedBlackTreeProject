@@ -173,9 +173,9 @@ namespace RedBlackTreeProject
 
                         newFoundTierNodes.Add(foundTierNodes[i].RightChild);
                     }
-
-                    foundTierNodes = newFoundTierNodes;
                 }
+
+                foundTierNodes = newFoundTierNodes;
             }
 
             return treeDataArray;
