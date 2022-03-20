@@ -43,9 +43,13 @@ namespace RedBlackTreeProject
             this.label2 = new System.Windows.Forms.Label();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.label3 = new System.Windows.Forms.Label();
+            this.randAddButton = new System.Windows.Forms.Button();
+            this.countRandNumericUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.addNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.deleteNumericUpDown)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.countRandNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // panel
@@ -81,7 +85,7 @@ namespace RedBlackTreeProject
             // addButton
             // 
             this.addButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.addButton.Location = new System.Drawing.Point(798, 111);
+            this.addButton.Location = new System.Drawing.Point(798, 100);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(94, 29);
             this.addButton.TabIndex = 3;
@@ -92,7 +96,7 @@ namespace RedBlackTreeProject
             // deleteButton
             // 
             this.deleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.deleteButton.Location = new System.Drawing.Point(798, 229);
+            this.deleteButton.Location = new System.Drawing.Point(798, 336);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(94, 29);
             this.deleteButton.TabIndex = 5;
@@ -103,7 +107,7 @@ namespace RedBlackTreeProject
             // deleteNumericUpDown
             // 
             this.deleteNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.deleteNumericUpDown.Location = new System.Drawing.Point(786, 185);
+            this.deleteNumericUpDown.Location = new System.Drawing.Point(786, 303);
             this.deleteNumericUpDown.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -174,7 +178,7 @@ namespace RedBlackTreeProject
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(786, 153);
+            this.label2.Location = new System.Drawing.Point(786, 271);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(120, 20);
             this.label2.TabIndex = 8;
@@ -184,11 +188,48 @@ namespace RedBlackTreeProject
             // 
             this.openFileDialog.FileName = "openFileDialog1";
             // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(792, 145);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(103, 40);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Кол-во ранд. \r\nэлементов";
+            // 
+            // randAddButton
+            // 
+            this.randAddButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.randAddButton.Location = new System.Drawing.Point(798, 229);
+            this.randAddButton.Name = "randAddButton";
+            this.randAddButton.Size = new System.Drawing.Size(94, 29);
+            this.randAddButton.TabIndex = 10;
+            this.randAddButton.Text = "Добавить";
+            this.randAddButton.UseVisualStyleBackColor = true;
+            this.randAddButton.Click += new System.EventHandler(this.randAddButton_Click);
+            // 
+            // countRandNumericUpDown
+            // 
+            this.countRandNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.countRandNumericUpDown.Location = new System.Drawing.Point(786, 193);
+            this.countRandNumericUpDown.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.countRandNumericUpDown.Name = "countRandNumericUpDown";
+            this.countRandNumericUpDown.Size = new System.Drawing.Size(118, 27);
+            this.countRandNumericUpDown.TabIndex = 9;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(914, 600);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.randAddButton);
+            this.Controls.Add(this.countRandNumericUpDown);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.deleteButton);
@@ -205,6 +246,7 @@ namespace RedBlackTreeProject
             ((System.ComponentModel.ISupportInitialize)(this.deleteNumericUpDown)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.countRandNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -227,6 +269,9 @@ namespace RedBlackTreeProject
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button randAddButton;
+        private System.Windows.Forms.NumericUpDown countRandNumericUpDown;
     }
 }
 

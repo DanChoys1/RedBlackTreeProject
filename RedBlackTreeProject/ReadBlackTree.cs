@@ -107,24 +107,35 @@ namespace RedBlackTreeProject
                 }
             }
             else
-            {                
-                Node parent = node.Parent;
+            {
+                /*                Node parent = node.Parent;
+
+                                if (node.IsRightChild)
+                                {
+                                    parent.RightChild = null;
+                                }
+                                else
+                                {
+                                    parent.LeftChild = null;
+                                }
+
+                                if (parent == _root)
+                                {
+                                    return;
+                                }*/
+
+                //DeleteFixedUp(parent);
+
+                DeleteFixedUp(node);
 
                 if (node.IsRightChild)
                 {
-                    parent.RightChild = null;
+                    node.Parent.RightChild = null;
                 }
                 else
                 {
-                    parent.LeftChild = null;
+                    node.Parent.LeftChild = null;
                 }
-
-                if (parent == _root)
-                {
-                    return;
-                }
-
-                DeleteFixedUp(parent);
             }
 
             while (_root.Parent != null)
@@ -372,7 +383,7 @@ namespace RedBlackTreeProject
             return minimumRightNode;
         }
     
-        private static void DeleteFixedUp(Node node)
+        private void DeleteFixedUp(Node node)
         {
             Node parent = node.Parent!;
             Node brother = node.GetBrother()!;
@@ -401,17 +412,16 @@ namespace RedBlackTreeProject
                 }
             }
 
-            if ((brother.RightChild == null && brother.LeftChild == null) ||
-                (!brother.RightChild.IsRedColor && !brother.LeftChild.IsRedColor))
+            if ((brother.RightChild == null || !brother.RightChild.IsRedColor) &&
+                (brother.LeftChild == null || !brother.LeftChild.IsRedColor))
             {
                 brother.IsRedColor = true;
 
                 if (parent.IsRedColor)
                 {
                     parent.IsRedColor = false;
-                    //node.IsRedColor = false;
                 }
-                else
+                else if (parent != _root)
                 {
                     DeleteFixedUp(parent);
                 }
@@ -454,8 +464,6 @@ namespace RedBlackTreeProject
 
                     LeftRotation(parent);
                 }
-
-                //node.IsRedColor = false;
             }
         }
     

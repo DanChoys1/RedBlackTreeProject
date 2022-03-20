@@ -13,7 +13,7 @@ namespace RedBlackTreeProject
 {
     public partial class Form1 : Form
     {
-        Form _form;
+        AboutForm _aboutDialog;
 
         Graphics _graphics;
         PictureBox _pictureBox;
@@ -39,66 +39,17 @@ namespace RedBlackTreeProject
             _pictureBox.Dock = DockStyle.Fill;
             _pictureBox.BorderStyle = BorderStyle.FixedSingle;
             _pictureBox.BackColor = Color.White;
-            _pictureBox.Resize += new System.EventHandler(pictureBox_Resize);
+            _pictureBox.Resize += new EventHandler(pictureBox_Resize);
             panel.Controls.Add(_pictureBox);
 
             _graphics = _pictureBox.CreateGraphics();
 
-            CreateAboutDialog();
-        }
+            _aboutDialog = new AboutForm();
 
-        private void CreateAboutDialog()
-        {
-            _form = new Form();
-            _form.Text = "О программе";
-            _form.Size = new Size(750, 350);
-            _form.StartPosition = FormStartPosition.CenterParent;
-            _form.MaximizeBox = false;
-            _form.MinimizeBox = false;
-
-            Label textAbout = new Label();
-            textAbout.AutoSize = true;
-            textAbout.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-            textAbout.Left = 10;
-            textAbout.Top = 10;
-            textAbout.Text = "Лабораторная работа №2" + Environment.NewLine + Environment.NewLine +
-                                "Создать интерфейс ICipher, который определяет методы поддержки шифрования строк. " + Environment.NewLine +
-                                "В интерфейсе объявляются два метода Encode() и Decode(), которые используются для " + Environment.NewLine +
-                                "шифрования и дешифрования строк, соответственно. Реализовать 2 класса реализующих " + Environment.NewLine +
-                                "данный интерфейс. Алгоритмы: ГОСТ 28147_89, Гаммирование." + Environment.NewLine + Environment.NewLine +
-                                "Выполнил стедент группы 404, Азаров Даниил Константинович." + Environment.NewLine + Environment.NewLine +
-                                "2022 год.";
-
-            CheckBox checkBox = new CheckBox();
-            checkBox.Location = new Point(305, 207);
-            checkBox.AutoSize = true;
-            checkBox.TextAlign = ContentAlignment.MiddleCenter;
-            checkBox.Text = "Больше не показывать";
-            checkBox.Checked = !Properties.Settings.Default.isShowAboutMenu;
-            //checkBox.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
-
-            Button ok = new Button();
-            ok.Text = "Ок";
-            ok.AutoSize = true;
-            ok.Location = new Point(450, 275);
-            //ok.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-
-            ok.Click += (sender, e) =>
+            if (Properties.Settings.Default.isShowAboutMenu)
             {
-                Properties.Settings.Default.isShowAboutMenu = !checkBox.Checked;
-                Properties.Settings.Default.Save();
-
-                _form.Close();
-            };
-
-            Panel panel = new Panel();
-            panel.Dock = DockStyle.Fill;
-
-            panel.Controls.Add(textAbout);
-            panel.Controls.Add(checkBox);
-            panel.Controls.Add(ok);
-
-            _form.Controls.Add(panel);
+                _aboutDialog.Show();
+            }
         }
 
         private void DisplayedTree()
@@ -291,7 +242,7 @@ namespace RedBlackTreeProject
 
         private void aboutProgramToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _form.ShowDialog();
+            _aboutDialog.ShowDialog();
         }
 
         private void ClearGraphics()
@@ -366,6 +317,21 @@ namespace RedBlackTreeProject
                     MessageBox.Show("Не удалось сохранить данные.", "Ошибка!");
                 }
             }
+        }
+
+        private void randAddButton_Click(object sender, EventArgs e)
+        {
+            Random rand = new Random();
+
+            for (int i = 0; i < countRandNumericUpDown.Value; i++)
+            {
+                _tree.AddData(rand.Next(-1000, 1000));
+            }
+
+            ClearGraphics();
+
+            DisplayedTree();
+            DisplayedTreeAssociated();
         }
     }
 }
