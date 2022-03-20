@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RedBlackTreeProject
 {
-    class RedBlackTree
+    public class RedBlackTree
     {
         private Node? _root;
 

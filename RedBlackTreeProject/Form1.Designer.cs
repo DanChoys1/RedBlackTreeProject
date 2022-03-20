@@ -1,5 +1,5 @@
 ﻿
-namespace RedBlackTreeProject
+namespace UI
 {
     partial class Form1
     {

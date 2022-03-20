@@ -1,4 +1,4 @@
-﻿namespace RedBlackTreeProject
+﻿namespace UI
 {
     partial class AboutForm
     {
