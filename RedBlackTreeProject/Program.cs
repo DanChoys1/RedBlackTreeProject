@@ -14,6 +14,7 @@ namespace RedBlackTreeProject
         [STAThread]
         static void Main()
         {
+            Console.WriteLine("Корниенко лапочка");
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

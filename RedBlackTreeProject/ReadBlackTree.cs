@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Numerics;
 
 namespace RedBlackTreeProject
 {
@@ -75,7 +71,29 @@ namespace RedBlackTreeProject
                 return;
             }
 
-            ChangeWithEndBranch(ref node);
+            Node minimumRightNode = FindeMinimumRightNode(node);
+
+            if (minimumRightNode != node)
+            {
+                node.Data = minimumRightNode.Data;
+                node = minimumRightNode;
+            }
+
+            if (node.RightChild != null)
+            {
+                node.Data = node.RightChild.Data;
+                node = node.RightChild;
+            }
+            else if (node.LeftChild != null)
+            {
+                node.Data = node.LeftChild.Data;
+                node = node.LeftChild;
+            }
+            else if (node.Parent == null)
+            {
+                _root = null;
+                return;
+            }
 
             if (node.IsRedColor)
             {
@@ -89,25 +107,29 @@ namespace RedBlackTreeProject
                 }
             }
             else
-            {
-                if (node.RightChild != null)
+            {                
+                Node parent = node.Parent;
+
+                if (node.IsRightChild)
                 {
-                    node.Data = node.RightChild.Data;
-                    node.RightChild = null;
-                }
-                else if (node.LeftChild != null)
-                {
-                    node.Data = node.LeftChild.Data;
-                    node.LeftChild = null;
-                }
-                else if (node.Parent == null)
-                {
-                    _root = null;
+                    parent.RightChild = null;
                 }
                 else
                 {
-                    DeleteChildlessBlackNode(node);
+                    parent.LeftChild = null;
                 }
+
+                if (parent == _root)
+                {
+                    return;
+                }
+
+                DeleteFixedUp(parent);
+            }
+
+            while (_root.Parent != null)
+            {
+                _root = _root.Parent;
             }
         }
 
@@ -181,6 +203,20 @@ namespace RedBlackTreeProject
             return treeDataArray;
         }
 
+        public List<double> GetDataArray()
+        {
+            List<double> dataAray = null;
+
+            if (_root != null)
+            {
+                dataAray = new List<double>();
+
+                FindeAllNodeData(_root, dataAray);
+            }
+
+            return dataAray;
+        }
+
         private static void FixInsertNode(Node node)
         {
             Node parent = node.Parent!;
@@ -213,6 +249,10 @@ namespace RedBlackTreeProject
                     if (!node.IsRightChild)
                     {
                         RightRotation(parent);
+
+                        Node? temp = node;
+                        node = parent;
+                        parent = temp;
                     }
 
                     LeftRotation(grandParent);
@@ -222,6 +262,10 @@ namespace RedBlackTreeProject
                     if (node.IsRightChild)
                     {
                         LeftRotation(parent);
+
+                        Node? temp = node;
+                        node = parent;
+                        parent = temp;
                     }
 
                     RightRotation(grandParent);
@@ -311,69 +355,123 @@ namespace RedBlackTreeProject
             return node;
         }
 
-        private static void ChangeWithEndBranch(ref Node node)
+        private static Node FindeMinimumRightNode(Node node)
         {
-            Node? endRightChild = node.RightChild;
+            Node? minimumRightNode = node.RightChild;
 
-            if (endRightChild == null)
+            if (minimumRightNode == null)
             {
-                return;
+                return node;
             }
 
-            while (endRightChild.LeftChild != null)
+            while (minimumRightNode.LeftChild != null)
             {
-                endRightChild = endRightChild.LeftChild;
+                minimumRightNode = minimumRightNode.LeftChild;
             }
 
-            double data = endRightChild.Data;
-            endRightChild.Data = node.Data;
-            node.Data = data;
-
-            node = endRightChild;
+            return minimumRightNode;
         }
     
-        private static void DeleteChildlessBlackNode(Node node)
+        private static void DeleteFixedUp(Node node)
         {
             Node parent = node.Parent!;
             Node brother = node.GetBrother()!;
 
-            if (parent.IsRedColor && (brother.LeftChild == null) && (brother.RightChild == null) )
+            if (brother.IsRedColor)
             {
-                parent.IsRedColor = false;
-                brother.IsRedColor = true;
-                
                 if (node.IsRightChild)
                 {
-                    parent.RightChild = null;
+                    parent.IsRedColor = true;
+                    brother.IsRedColor = false;
+
+                    RightRotation(parent);
+
+                    parent = node.Parent!;
+                    brother = node.GetBrother()!;
                 }
                 else
                 {
-                    parent.LeftChild = null;
+                    parent.IsRedColor = true;
+                    brother.IsRedColor = false;
+
+                    LeftRotation(parent);
+
+                    parent = node.Parent!;
+                    brother = node.GetBrother()!;
                 }
             }
-            else if (parent.IsRedColor)
+
+            if ((brother.RightChild == null && brother.LeftChild == null) ||
+                (!brother.RightChild.IsRedColor && !brother.LeftChild.IsRedColor))
             {
-                parent.IsRedColor = false;
                 brother.IsRedColor = true;
 
-                if (brother.RightChild != null)
+                if (parent.IsRedColor)
                 {
-                    brother.RightChild.IsRedColor = false;
+                    parent.IsRedColor = false;
+                    //node.IsRedColor = false;
                 }
-
-                if(brother.LeftChild != null)
+                else
                 {
-                    brother.LeftChild.IsRedColor = false;
+                    DeleteFixedUp(parent);
                 }
-
-                RightRotation(parent);
             }
-            else if (brother.IsRedColor && (brother.RightChild!.RightChild == null) && (brother.RightChild!.LeftChild == null) && 
-                    (brother.LeftChild!.RightChild == null) && (brother.LeftChild!.LeftChild == null) )
+            else
             {
-                //if ()
+                if (node.IsRightChild)
+                {
+                    if (brother.LeftChild == null || !brother.LeftChild.IsRedColor)
+                    {
+                        LeftRotation(brother);
+
+                        brother = node.GetBrother();
+
+                        brother.IsRedColor = false;
+                        brother.LeftChild.IsRedColor = true;
+                    }
+
+                    brother.IsRedColor = parent.IsRedColor;
+                    parent.IsRedColor = false;
+                    brother.LeftChild.IsRedColor = false;
+
+                    RightRotation(parent);
+                }
+                else
+                {
+                    if (brother.RightChild == null || !brother.RightChild.IsRedColor)
+                    {
+                        RightRotation(brother);
+
+                        brother = node.GetBrother();
+
+                        brother.IsRedColor = false;
+                        brother.RightChild.IsRedColor = true;
+                    }
+
+                    brother.IsRedColor = parent.IsRedColor;
+                    parent.IsRedColor = false;
+                    brother.RightChild.IsRedColor = false;
+
+                    LeftRotation(parent);
+                }
+
+                //node.IsRedColor = false;
             }
         }
     
+        private void FindeAllNodeData(Node node, List<double> dataArray)
+        {
+            dataArray.Add(node.Data);
+
+            if (node.LeftChild != null)
+            {
+                FindeAllNodeData(node.LeftChild, dataArray);
+            }
+            
+            if (node.RightChild != null)
+            {
+                FindeAllNodeData(node.RightChild, dataArray);
+            }
+        }
     }
 }
