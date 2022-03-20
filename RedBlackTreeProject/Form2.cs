@@ -24,5 +24,11 @@ namespace RedBlackTreeProject
 
             this.Close();
         }
+
+        private void AboutForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+        }
     }
 }
