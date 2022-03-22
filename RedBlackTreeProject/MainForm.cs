@@ -7,7 +7,7 @@ using RedBlackTreeProject;
 
 namespace UI
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         AboutForm _aboutDialog;
 
@@ -23,7 +23,7 @@ namespace UI
 
         bool _isMouseDownToNode = false;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
 
@@ -272,6 +272,8 @@ namespace UI
 
                     string inputValue;
 
+                    _tree.Clear();
+
                     while ((inputValue = sr.ReadLine()) != null)
                     {
                         double value = Convert.ToDouble(inputValue);
@@ -328,6 +330,12 @@ namespace UI
 
             DisplayedTree();
             DisplayedTreeAssociated();
+        }
+
+        private void deleteAllButton_Click(object sender, EventArgs e)
+        {
+            _tree.Clear();
+            ClearGraphics();
         }
     }
 }

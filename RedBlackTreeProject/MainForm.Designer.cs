@@ -1,7 +1,7 @@
 ﻿
 namespace UI
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -46,6 +46,7 @@ namespace UI
             this.label3 = new System.Windows.Forms.Label();
             this.randAddButton = new System.Windows.Forms.Button();
             this.countRandNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.deleteAllButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.addNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.deleteNumericUpDown)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -222,11 +223,23 @@ namespace UI
             this.countRandNumericUpDown.Size = new System.Drawing.Size(118, 27);
             this.countRandNumericUpDown.TabIndex = 9;
             // 
-            // Form1
+            // deleteAllButton
+            // 
+            this.deleteAllButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.deleteAllButton.Location = new System.Drawing.Point(786, 391);
+            this.deleteAllButton.Name = "deleteAllButton";
+            this.deleteAllButton.Size = new System.Drawing.Size(120, 29);
+            this.deleteAllButton.TabIndex = 12;
+            this.deleteAllButton.Text = "Удалить всё";
+            this.deleteAllButton.UseVisualStyleBackColor = true;
+            this.deleteAllButton.Click += new System.EventHandler(this.deleteAllButton_Click);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(914, 600);
+            this.Controls.Add(this.deleteAllButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.randAddButton);
             this.Controls.Add(this.countRandNumericUpDown);
@@ -240,8 +253,8 @@ namespace UI
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "MainForm";
+            this.Text = "Красно-черное дерево";
             ((System.ComponentModel.ISupportInitialize)(this.addNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.deleteNumericUpDown)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -272,6 +285,7 @@ namespace UI
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button randAddButton;
         private System.Windows.Forms.NumericUpDown countRandNumericUpDown;
+        private System.Windows.Forms.Button deleteAllButton;
     }
 }
 

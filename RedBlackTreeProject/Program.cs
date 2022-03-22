@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using UI;
+using Autofac;
 
 namespace Main
 {
@@ -16,7 +17,7 @@ namespace Main
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new MainForm());
         }
     }
 }

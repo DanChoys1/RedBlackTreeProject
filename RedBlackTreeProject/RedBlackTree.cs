@@ -228,6 +228,11 @@ namespace RedBlackTreeProject
             return dataAray;
         }
 
+        public void Clear()
+        {
+            _root = null;
+        }
+
         private static void FixInsertNode(Node node)
         {
             Node parent = node.Parent!;
@@ -481,5 +486,6 @@ namespace RedBlackTreeProject
                 FindeAllNodeData(node.RightChild, dataArray);
             }
         }
+    
     }
 }
